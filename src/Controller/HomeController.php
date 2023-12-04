@@ -12,7 +12,8 @@ class HomeController
      */
     public function index(): Response
     {
-          $cart = Cart::all();
+        $cart = Cart::all();
+
         return response(view('home'));
     }
 }
