@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CartItem extends Model
 {
     public $timestamps = false;
-    protected $table = 'cart_items';
 
     protected $fillable = ['product_id', 'price', 'quantity', 'cart_id'];
 

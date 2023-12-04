@@ -5,10 +5,6 @@ namespace Achraf\framework\Config;
 final class Config
 {
     /**
-     * @var Config|null
-     */
-    private static self|null $instance = null;
-    /**
      * @var array|mixed
      */
     private static array $values;

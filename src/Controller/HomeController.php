@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Achraf\framework\Http\Response;
+use App\Models\Cart;
 
 class HomeController
 {
@@ -11,7 +12,7 @@ class HomeController
      */
     public function index(): Response
     {
-        //  $cart = Cart::all();
+          $cart = Cart::all();
         return response(view('home'));
     }
 }
