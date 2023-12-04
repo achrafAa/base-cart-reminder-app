@@ -5,8 +5,7 @@ use App\Commands\migrate;
 use Symfony\Component\Console\Application;
 
 
-require_once BASE_PATH . '/vendor/autoload.php';
-require_once BASE_PATH . '/framework/Bootstrap.php';
+require_once BASE_PATH . '/src/App.php';
 
 $application = new Application();
 $application->add(new migrate());

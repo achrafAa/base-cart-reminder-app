@@ -2,9 +2,7 @@
 
 define('BASE_PATH', dirname(__DIR__));
 
-require_once BASE_PATH . '/vendor/autoload.php';
-require_once BASE_PATH . '/framework/Bootstrap.php';
-
+require_once BASE_PATH . '/src/App.php';
 use Achraf\framework\Http\Kernel;
 use Achraf\framework\Http\Request;
 use Achraf\framework\Http\Response;
