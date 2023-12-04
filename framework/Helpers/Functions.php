@@ -25,9 +25,14 @@ if (!function_exists('view')) {
     {
         try {
             return app()->get(View::class)->render($view, $data);
-        } catch(Exception $exception) {
+        } catch (Exception $exception) {
             logToFile('error', sprintf('Error loading template %s', $view));
-            logToFile('error', sprintf('File: %s Line: %s   Error: %s ', $exception->getFile(), $exception->getLine(), $exception->getMessage()));
+            logToFile('error', sprintf(
+                'File: %s Line: %s   Error: %s ',
+                $exception->getFile(),
+                $exception->getLine(),
+                $exception->getMessage()
+            ));
 
             return '<h1>Something went wrong</h1>' . $exception->getMessage();
         }

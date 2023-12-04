@@ -23,7 +23,7 @@ readonly class Request
     /**
      * @return static
      */
-    public static function createFromGlobals():static
+    public static function createFromGlobals(): static
     {
         return new static(
             $_GET,
@@ -37,7 +37,7 @@ readonly class Request
     /**
      * @return string
      */
-    public function getPathInfo():string
+    public function getPathInfo(): string
     {
         return strtok($this->server['REQUEST_URI'], '?');
     }
@@ -45,7 +45,7 @@ readonly class Request
     /**
      * @return string
      */
-    public function getMethod():string
+    public function getMethod(): string
     {
         return $this->server['REQUEST_METHOD'];
     }

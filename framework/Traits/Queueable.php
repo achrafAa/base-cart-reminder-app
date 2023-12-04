@@ -25,7 +25,7 @@ trait Queueable
      * @param string $queueName
      * @return RedisQueue
      */
-    public function onQueue(String $queueName): RedisQueue
+    public function onQueue(string $queueName): RedisQueue
     {
         return $this->queue->onQueue($queueName);
     }

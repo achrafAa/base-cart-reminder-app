@@ -22,8 +22,8 @@ return [
     'MAIL_ENCRYPTION' => $_ENV['MAIL_ENCRYPTION'] ?? 'tls',
     'MAIL_FROM_ADDRESS' => $_ENV['MAIL_FROM_ADDRESS'] ?? '',
 
-    'REDIS_SCHEME' =>'tcp',
-    'REDIS_HOST' =>'redis',
+    'REDIS_SCHEME' => 'tcp',
+    'REDIS_HOST' => 'redis',
     'REDIS_PORT' => 6379,
 
     'VIEWS_PATH' => BASE_PATH . '/views',

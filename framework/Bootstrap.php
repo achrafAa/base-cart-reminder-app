@@ -43,7 +43,7 @@ app()->bind(
     'scheme' => config('REDIS_SCHEME'),
     'host' => config('REDIS_HOST'),
     'port' => config('REDIS_PORT'),
-])
+    ])
 );
 app()->bind(MonologLogger::class, fn () => new MonologLogger('app'));
 app()->bind(StreamHandler::class, fn () => new StreamHandler(config('LOGS_PATH'), Level::Debug));

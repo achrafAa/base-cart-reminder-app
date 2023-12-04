@@ -5,6 +5,7 @@ namespace Achraf\framework\Http;
 use Achraf\framework\Container\Container;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
+
 use function FastRoute\simpleDispatcher;
 
 readonly class Kernel

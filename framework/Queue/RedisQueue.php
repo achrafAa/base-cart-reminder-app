@@ -8,7 +8,7 @@ use Predis\Client;
 class RedisQueue
 {
     protected Client $client;
-    private String $queueName = 'default-queue';
+    private string $queueName = 'default-queue';
 
     public function __construct(Client $client)
     {
@@ -41,7 +41,7 @@ class RedisQueue
      * @param string $queueName
      * @return $this
      */
-    public function onQueue(String $queueName): self
+    public function onQueue(string $queueName): self
     {
         $this->queueName = $queueName;
 
