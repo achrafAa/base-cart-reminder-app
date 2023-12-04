@@ -1,0 +1,6 @@
+.idea/
+vendor/
+.env
+logs/*.log
+mysql/
+node_modules/
