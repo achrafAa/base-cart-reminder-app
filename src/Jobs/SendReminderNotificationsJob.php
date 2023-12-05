@@ -2,14 +2,11 @@
 
 namespace App\Jobs;
 
-use Achraf\framework\Traits\Queueable;
 use App\Services\CartReminderService;
 use Exception;
 
-class SendReminderNotificationsJob
+class SendReminderNotificationsJob extends Queue
 {
-    use Queueable;
-
     private int $id;
 
     private int $cartId;

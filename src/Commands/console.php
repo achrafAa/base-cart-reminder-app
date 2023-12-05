@@ -13,9 +13,6 @@ $application = new Application();
 $application->add(new MigrateCommand());
 $application->add(new MakeMigrationCommand());
 $application->add(new SeedCommand());
-app()->bind(PushReminderNotificationsCommand::class, function () {
-    return new PushReminderNotificationsCommand(app()->get(CreateReminderNotificationsJob::class));
-});
 $application->add(app()->get(PushReminderNotificationsCommand::class));
 
 try {

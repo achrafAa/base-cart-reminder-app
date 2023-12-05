@@ -2,14 +2,12 @@
 
 namespace App\Jobs;
 
-use Achraf\framework\Interfaces\QueueableInterface;
-use Achraf\framework\Traits\Queueable;
+use Achraf\framework\Queue\Queue;
 use App\Services\CartReminderService;
 use Exception;
 
-class CreateReminderNotificationsJob implements QueueableInterface
+class CreateReminderNotificationsJob extends Queue
 {
-    use Queueable;
 
     /**
      * @throws Exception

@@ -16,6 +16,10 @@ $jobs = [
         'command' => 'php wizard app:push-cart-reminders-notifications',
         'schedule' => '* * * * *',
     ],
+    [
+        'command' => 'php wizard worker',
+        'schedule' => '* * * * *',
+    ]
 ];
 foreach ($jobs as $job) {
     $shellJob = new ShellJob();
