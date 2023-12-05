@@ -8,8 +8,14 @@ use Twig\Loader\FilesystemLoader;
 
 class View
 {
+    /**
+     * @var Environment
+     */
     private Environment $twig;
 
+    /**
+     * @param  FilesystemLoader  $loader
+     */
     public function __construct(FilesystemLoader $loader)
     {
         $this->twig = new Environment($loader);
@@ -23,9 +29,9 @@ class View
     public function render($view, array $data = []): string
     {
         try {
-            return $this->twig->load($view . '.twig')->render($data);
+            return $this->twig->load($view.'.twig')->render($data);
         } catch (Exception $exception) {
-            return '<h1>Something went wrong </h1>' . $exception->getMessage();
+            return '<h1>Something went wrong </h1>'.$exception->getMessage();
         }
     }
 }

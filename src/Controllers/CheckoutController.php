@@ -15,7 +15,7 @@ class CheckoutController
     {
         // check auth skipped
         $cart = Cart::find($cartId);
-        if (!$cart) {
+        if (! $cart) {
             return response(json_encode(['error' => 'Cart not found']), 404);
         }
         // process payment and delivery data skipped

@@ -24,11 +24,6 @@ class MigrateCommand extends Command
         );
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
@@ -50,7 +45,7 @@ class MigrateCommand extends Command
                 return $this->down($input, $output, $batch);
             }
 
-            return  $this->up($input, $output, $batch);
+            return $this->up($input, $output, $batch);
         } catch (\Exception $exception) {
             $output->writeln($exception);
 
@@ -58,10 +53,6 @@ class MigrateCommand extends Command
         }
     }
 
-    /**
-     * @param $directory
-     * @return array
-     */
     public function getClassesInDirectory($directory): array
     {
         $classes = [];
@@ -81,20 +72,20 @@ class MigrateCommand extends Command
         return $classes;
     }
 
-    public function up(InputInterface $input, OutputInterface $output, int $batch):int
+    public function up(InputInterface $input, OutputInterface $output, int $batch): int
     {
         $output->writeln('Migrating database...');
         $output->writeln('this might take few minutes... (drink some water)');
-        $classes = $this->getClassesInDirectory(BASE_PATH . '/src/Database/Migrations/');
+        $classes = $this->getClassesInDirectory(BASE_PATH.'/src/Database/Migrations/');
         $migrated = Migration::query()->pluck('migration')->toArray();
         foreach ($classes as $class) {
             if (in_array($class, $migrated)) {
                 continue;
             }
-            $output->writeln('Migrating ' . $class . '...');
-            $migration = include BASE_PATH . '/src/Database/Migrations/' . $class . '.php';
-            if (!method_exists($migration, 'up')) {
-                $output->writeln('Method up() not found in ' . $class . '!');
+            $output->writeln('Migrating '.$class.'...');
+            $migration = include BASE_PATH.'/src/Database/Migrations/'.$class.'.php';
+            if (! method_exists($migration, 'up')) {
+                $output->writeln('Method up() not found in '.$class.'!');
 
                 return Command::FAILURE;
             }
@@ -120,10 +111,10 @@ class MigrateCommand extends Command
             ->toArray();
 
         foreach ($classes as $class) {
-            $output->writeln('Rolling back ' . $class . '...');
-            $migration = include BASE_PATH . '/src/Database/Migrations/' . $class . '.php';
-            if (!method_exists($migration, 'down')) {
-                $output->writeln('Method down() not found in ' . $class . '!');
+            $output->writeln('Rolling back '.$class.'...');
+            $migration = include BASE_PATH.'/src/Database/Migrations/'.$class.'.php';
+            if (! method_exists($migration, 'down')) {
+                $output->writeln('Method down() not found in '.$class.'!');
 
                 return Command::FAILURE;
             }
@@ -137,7 +128,7 @@ class MigrateCommand extends Command
 
     public function createMigrationTable(): void
     {
-        $migration = include BASE_PATH . '/src/Database/create_migration_table.php';
+        $migration = include BASE_PATH.'/src/Database/create_migration_table.php';
         if (DBCapsule::table('migrations')->exists()) {
             return;
         }

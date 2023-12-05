@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Achraf\framework\Mailer\Mailer;
 use App\Enums\CartReminderTimeInterval;
 use App\Jobs\SendReminderNotificationsJob;
 use App\Models\Cart;
@@ -28,9 +29,9 @@ class CartReminderService
     {
         try {
             Cart::query()
-                ->whereDoesntHave('cartReminderNotification')
                 ->select('id')
-                ->where('carts.created_at', '<=', Carbon::now()->subHours(CartReminderTimeInterval::FIRST_ATTEMPT->value)->toDateTimeString())
+                ->where('created_at', '<=', Carbon::now()->subHours(CartReminderTimeInterval::FIRST_ATTEMPT->value)->toDateTimeString())
+                ->where('reminder_attempt', 0)
                 ->chunk(100, function ($carts) {
                     foreach ($carts as $cart) {
                         (new SendReminderNotificationsJob($cart->id, 1))->dispatch();
@@ -48,9 +49,10 @@ class CartReminderService
     {
         try {
             Cart::query()
+                ->where('reminder_attempt', 1)
                 ->whereHas('cartReminderNotification', function ($query) {
                     $query
-                        ->where('attempt_count', 1)
+                        ->latest()
                         ->where('sent_at', '<=', Carbon::now()->subHours(CartReminderTimeInterval::SECOND_ATTEMPT->value)->toDateTimeString());
                 })
                 ->chunk(100, function ($carts) {
@@ -70,9 +72,10 @@ class CartReminderService
     {
         try {
             Cart::query()
+                ->where('reminder_attempt', 2)
                 ->whereHas('cartReminderNotification', function ($query) {
                     $query
-                        ->where('attempt_count', 2)
+                        ->latest()
                         ->where('sent_at', '<=', Carbon::now()->subHours(CartReminderTimeInterval::THIRD_ATTEMPT->value)->toDateTimeString());
                 })
                 ->chunk(100, function ($carts) {
@@ -92,9 +95,10 @@ class CartReminderService
     {
         try {
             Cart::query()
+                ->where('reminder_attempt', 2)
                 ->whereHas('cartReminderNotification', function ($query) {
                     $query
-                        ->where('attempt_count', 3)
+                        ->latest()
                         ->where('sent_at', '<=', Carbon::now()->subHours(CartReminderTimeInterval::DELETE->value)->toDateTimeString());
                 })
                 ->delete();
@@ -104,42 +108,48 @@ class CartReminderService
     }
 
     /**
-     * @param int $cartId
-     * @param int $attempt
+     * @param  int  $cartId
+     * @param  int  $attempt
      * @return void
      */
     public function sendReminderNotification(int $cartId, int $attempt): void
     {
+        // we can use attempt to send different emails
+
         try {
             $cart = Cart::query()->find($cartId);
-            if (!$cart) {
+            if (! $cart) {
                 throw new Exception(sprintf('Cart with id %s not found', $cartId));
             }
             if ($cart->cartReminderNotification && $cart->cartReminderNotification->attempt_count >= $attempt) {
                 return;
             }
-            $cart->cartReminderNotification()->firstOrCreate([
-                'attempt_count' => $attempt,
-                'sent_at' => Carbon::now(),
-            ]);
-
-//            (new Mailer())->sendEmail(
-//                $cart->customer_email,
-//                'Cart Reminder',
-//                sprintf(
-//                    '<h1>Hello %s, you have items in your cart</h1>
-//                           <p>Click <a href="%s">here</a> to checkout</p>',
-//                    $cart->customer_fullname,
-//                    sprintf('%s/cart/%s', $_ENV['APP_URL'], $cart->id)
-//                )
-//            );
+            $cart->cartReminderNotification()
+                ->Create([
+                    'attempt' => $attempt,
+                    'sent_at' => Carbon::now(),
+                ])
+                ->save();
+            $cart->reminder_attempt = $attempt;
+            $cart->save();
+            app()->get(Mailer::class)->sendEmail(
+                $cart->customer_email,
+                'Cart Reminder',
+                sprintf(
+                    '<h1>Hello %s, you have items in your cart</h1>
+                           <p>Click <a href="%s">here</a> to checkout</p>',
+                    $cart->customer_fullname,
+                    sprintf('%s/cart/%s', config('APP_URL'), $cart->id)
+                )
+            );
+            logToFile('info', 'Email sent successfully! cart: '.$cart->id.' - '.$attempt.' attempt');
         } catch (Exception $exception) {
             $this->logError($exception);
         }
     }
 
     /**
-     * @param Exception $exception
+     * @param  Exception  $exception
      * @return void
      */
     public function logError(Exception $exception): void

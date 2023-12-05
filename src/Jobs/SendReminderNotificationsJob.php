@@ -11,12 +11,9 @@ class SendReminderNotificationsJob
     use Queueable;
 
     private int $id;
+
     private int $cartId;
 
-    /**
-     * @param int $cartId
-     * @param int $attempt
-     */
     public function __construct(int $cartId, private readonly int $attempt)
     {
         $this->cartId = $cartId;
@@ -24,6 +21,7 @@ class SendReminderNotificationsJob
 
     /**
      * handle the job.
+     *
      * @throws Exception
      */
     public function handle(): void

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Cart extends Model
 {
+    /**
+     * @var string[]
+     */
     protected $fillable = ['customer_email', 'customer_fullname', 'created_at'];
 
     /**
@@ -19,20 +22,11 @@ class Cart extends Model
     }
 
     /**
-     * @return HasOne
+     * @return HasMany
      */
-    public function cartReminderNotification(): HasOne
+    public function cartReminderNotification(): HasMany
     {
-        return $this->hasOne(CartReminderNotification::class);
+        return $this->hasMany(CartReminderNotification::class);
     }
 
-    /**
-     * @return void
-     */
-    public function delete(): void
-    {
-        $this->items()->delete();
-        $this->cartReminderNotification()->delete();
-        parent::delete();
-    }
 }

@@ -5,26 +5,23 @@ namespace Achraf\framework\Http;
 use Achraf\framework\Container\Container;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
+
+use ReflectionException;
 use function FastRoute\simpleDispatcher;
 
 readonly class Kernel
 {
-    /**
-     * @param  Container  $container
-     */
     public function __construct(private Container $container)
     {
     }
 
     /**
-     * @param  Request  $request
-     * @return Response
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function handle(Request $request): Response
     {
         $dispatcher = simpleDispatcher(function (RouteCollector $routeCollector) {
-            foreach (include BASE_PATH . '/routes/web.php' as $route) {
+            foreach (include BASE_PATH.'/routes/web.php' as $route) {
                 $routeCollector->addRoute(...$route);
             }
         });
@@ -41,7 +38,7 @@ readonly class Kernel
         return match ($status) {
             Dispatcher::NOT_FOUND => new Response('Not Found', 404),
             Dispatcher::METHOD_NOT_ALLOWED => new Response('Method Not Allowed', 405),
-            Dispatcher::FOUND =>call_user_func_array([$this->container->get($controller), $method], $vars)
+            Dispatcher::FOUND => call_user_func_array([$this->container->get($controller), $method], $vars)
         };
     }
 }

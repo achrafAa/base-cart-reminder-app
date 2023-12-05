@@ -10,17 +10,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'db:seed', description: 'Seed database')]
 class SeedCommand extends Command
 {
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
             $output->writeln('Seeding database...');
             $output->writeln('this will take few minutes... (drink some water)');
-            $seeder = include BASE_PATH . '/src/Database/DatabaseSeeder.php';
+            $seeder = include BASE_PATH.'/src/Database/DatabaseSeeder.php';
             $seeder->run();
             $output->writeln('Database seeded successfully!');
 

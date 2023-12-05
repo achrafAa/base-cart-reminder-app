@@ -8,7 +8,7 @@ use App\Models\Cart;
 class CartController
 {
     /**
-     * @param  int $cartId
+     * @param  int  $cartId
      * @return Response
      */
     public function show(int $cartId): Response

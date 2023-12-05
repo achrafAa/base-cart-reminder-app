@@ -5,7 +5,7 @@ use Achraf\framework\Commands\MigrateCommand;
 use Achraf\framework\Commands\SeedCommand;
 use Symfony\Component\Console\Application;
 
-require_once BASE_PATH . '/src/App.php';
+require_once BASE_PATH.'/src/App.php';
 
 $application = new Application();
 $application->add(new MigrateCommand());

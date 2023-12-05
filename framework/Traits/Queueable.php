@@ -7,6 +7,9 @@ use Exception;
 
 trait Queueable
 {
+    /**
+     * @var RedisQueue
+     */
     public RedisQueue $queue;
 
     /**
@@ -22,7 +25,7 @@ trait Queueable
     }
 
     /**
-     * @param string $queueName
+     * @param  string  $queueName
      * @return RedisQueue
      */
     public function onQueue(string $queueName): RedisQueue

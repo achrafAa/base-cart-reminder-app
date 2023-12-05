@@ -7,16 +7,26 @@ use Predis\Client;
 
 class RedisQueue
 {
+    /**
+     * @var Client
+     */
     protected Client $client;
+
+    /**
+     * @var string
+     */
     private string $queueName = 'default-queue';
 
+    /**
+     * @param  Client  $client
+     */
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
 
     /**
-     * @param QueueableInterface $job
+     * @param  QueueableInterface  $job
      * @return void
      */
     public function enqueue(QueueableInterface $job): void
@@ -38,7 +48,6 @@ class RedisQueue
     }
 
     /**
-     * @param string $queueName
      * @return $this
      */
     public function onQueue(string $queueName): self

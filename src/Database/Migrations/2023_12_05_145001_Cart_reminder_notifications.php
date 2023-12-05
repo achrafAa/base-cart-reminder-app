@@ -12,14 +12,12 @@ return new class
      */
     public function up()
     {
-        DBCapsule::schema()->create('cart_items', function (Blueprint $table) {
+        DBCapsule::schema()->create('cart_reminder_notifications', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('cart_id');
-            $table->unsignedBigInteger('product_id');
-            $table->integer('quantity');
-            $table->decimal('price');
+            $table->integer('attempt')->default(0);
+            $table->timestamp('sent_at')->useCurrent();
             $table->foreign('cart_id')->references('id')->on('carts');
-            $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class
      */
     public function down()
     {
-        DBCapsule::schema()->dropIfExists('cart_items');
+        DBCapsule::schema()->dropIfExists('cart_reminder_notifications');
     }
 };

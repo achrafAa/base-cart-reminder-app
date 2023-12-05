@@ -5,20 +5,20 @@ namespace App\Jobs;
 use Achraf\framework\Interfaces\QueueableInterface;
 use Achraf\framework\Traits\Queueable;
 use App\Services\CartReminderService;
+use Exception;
 
 class CreateReminderNotificationsJob implements QueueableInterface
 {
     use Queueable;
 
     /**
-     * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle(): void
     {
         try {
             app()->get(CartReminderService::class)->createReminderJobs();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             logToFile('error', $exception->getMessage());
         }
     }

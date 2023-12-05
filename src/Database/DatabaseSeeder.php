@@ -9,6 +9,9 @@ use Illuminate\Database\Capsule\Manager as DBCapsule;
 
 class DatabaseSeeder
 {
+    /**
+     * @return void
+     */
     public function run()
     {
         // Seed the database with products
@@ -28,8 +31,8 @@ class DatabaseSeeder
         // Seed the database with carts
         foreach (range(1, 10) as $i) {
             $carts[] = [
-                'customer_email' => $faker->email,
-                'customer_fullname' => $faker->name,
+                'customer_email' => $faker->email(),
+                'customer_fullname' => $faker->name(),
             ];
         }
         DBCapsule::table('carts')->insert($carts);

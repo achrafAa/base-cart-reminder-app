@@ -25,11 +25,7 @@ RUN mkdir -p /usr/src/php/ext/redis \
 RUN echo 'memory_limit = 256M' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini;
 
 RUN apk add --no-cache dcron \
-    && echo "* * * * * php /var/www/html/bin/console.php app:push-reminder-notifications >> /var/log/cron.log 2>&1" | crontab -
+    && echo "* * * * * php /var/www/html/cron.php  >> /var/log/cron.log 2>&1" | crontab -
 
-RUN apk add --no-cache supervisor
-COPY ./.docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 CMD crond
 CMD php-fpm -y /usr/local/etc/php-fpm.conf -R

@@ -17,11 +17,6 @@ class MakeMigrationCommand extends Command
         $this->addArgument('name', InputArgument::REQUIRED, 'Whats the name of your migration?');
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $name = $input->getArgument('name');
@@ -49,7 +44,7 @@ return new class
     }
 };   
 EOT;
-            $filename = BASE_PATH . '/src/Database/Migrations/' . date('Y_m_d_His') . '_' . $className . '.php';
+            $filename = BASE_PATH.'/src/Database/Migrations/'.date('Y_m_d_His').'_'.$className.'.php';
 
             if (file_exists($filename)) {
                 $output->writeln("Migration $className already exists!");

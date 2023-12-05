@@ -5,7 +5,11 @@ namespace App\Database\Migrations;
 use Illuminate\Database\Capsule\Manager as DBCapsule;
 use Illuminate\Database\Schema\Blueprint;
 
-return new class {
+return new class
+{
+    /**
+     * @return void
+     */
     public function up()
     {
         DBCapsule::schema()->create('products', function (Blueprint $table) {
@@ -18,6 +22,9 @@ return new class {
         });
     }
 
+    /**
+     * @return void
+     */
     public function down()
     {
         DBCapsule::schema()->dropIfExists('products');
