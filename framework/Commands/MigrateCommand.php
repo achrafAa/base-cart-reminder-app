@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Commands;
+namespace Achraf\framework\Commands;
 
 use App\Models\Migration;
 use DirectoryIterator;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(name: 'db:migrate', description: 'Migrate database')]
-class migrate extends Command
+class MigrateCommand extends Command
 {
     protected function configure(): void
     {
@@ -137,7 +137,7 @@ class migrate extends Command
 
     public function createMigrationTable(): void
     {
-        $migration = include BASE_PATH . '/src/Database/migration-table.php';
+        $migration = include BASE_PATH . '/src/Database/create_migration_table.php';
         if (DBCapsule::table('migrations')->exists()) {
             return;
         }

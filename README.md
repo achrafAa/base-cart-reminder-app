@@ -55,16 +55,13 @@ then install the needed dependencies by running the following commands
 - `docker compose run --rm npm run build`
 
 the run this fakers to create some products and a cart to test 
-- `docker exec -it php sh -c "php /var/www/html/bin/console.php app:create-fake-products"`
-- `docker exec -it php sh -c "php /var/www/html/bin/console.php app:create-fake-cart"`
+- `docker exec -it php sh -c "php wizard migrate"`
+- `docker exec -it php sh -c "php wizard seed"`
 
-to accelerate the process of testing you can use the following command to move carts back in time to test the cron job
-
-- `docker exec -it php sh -c "php /var/www/html/bin/console.php app:move-cart-back-in-time @number-of-hours"`
 
 to run commands inside the php container run the following command
 
-- `docker exec -it php sh -c "php /var/www/html/bin/console.php your-command" `
+- `docker exec -it php sh -c "php wizard your-command" `
 
 ### links :
 to access the emails : http://localhost:8025/

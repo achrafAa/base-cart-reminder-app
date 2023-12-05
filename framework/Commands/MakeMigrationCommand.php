@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Commands;
+namespace Achraf\framework\Commands;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(name: 'make:migration', description: 'make database migration')]
 
-class makeMigration extends Command
+class MakeMigrationCommand extends Command
 {
     protected function Configure(): void
     {

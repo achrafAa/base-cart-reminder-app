@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Database\Seeders;
+namespace App\Database;
+
 use App\Models\Cart;
 use App\Models\Product;
 use Faker\Factory;
@@ -38,7 +39,7 @@ class DatabaseSeeder
         $carts = Cart::inRandomOrder()->get();
         $products = Product::inRandomOrder()->limit(10)->pluck('id')->toArray();
         $cartItems = [];
-        foreach($carts as $cart) {
+        foreach ($carts as $cart) {
             foreach (range(1, 5) as $i) {
                 $cartItems[] = [
                     'product_id' => $products[rand(0, 9)],
@@ -49,5 +50,4 @@ class DatabaseSeeder
             $cart->items()->createMany($cartItems);
         }
     }
-
 }
