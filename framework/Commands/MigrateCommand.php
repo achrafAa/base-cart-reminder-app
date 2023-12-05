@@ -5,6 +5,7 @@ namespace Achraf\framework\Commands;
 use App\Models\Migration;
 use DirectoryIterator;
 use Illuminate\Database\Capsule\Manager as DBCapsule;
+use Monolog\Level;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,14 +28,15 @@ class MigrateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
-            if (DBCapsule::table('migrations')->exists()) {
-                $batch = Migration::query()->max('batch') + 1 ?? 1;
-            } else {
-                $output->writeln('Creating migrations table...');
-                $this->createMigrationTable();
-                $batch = 1;
-                $output->writeln('Migrations table created successfully!');
-            }
+                $migrationTableExists = DBCapsule::select('SHOW TABLES LIKE "migrations"');
+                if(!empty($migrationTableExists)){
+                    $batch = Migration::query()->max('batch') + 1 ?? 1;
+                }else{
+                    $this->createMigrationTable();
+                    $batch = 1;
+                    $output->writeln('Migrations table created successfully!');
+                }
+
             if ($input->getOption('rollback')) {
                 if ($batch === 1) {
                     $output->writeln('Nothing to rollback!');
@@ -48,7 +50,7 @@ class MigrateCommand extends Command
             return $this->up($input, $output, $batch);
         } catch (\Exception $exception) {
             $output->writeln($exception);
-
+            logToFile('error', sprintf(' %s: %s', $exception->getMessage(), $exception->getTraceAsString()));
             return Command::FAILURE;
         }
     }
@@ -68,7 +70,7 @@ class MigrateCommand extends Command
                 }
             }
         }
-
+        sort($classes);
         return $classes;
     }
 
@@ -129,7 +131,8 @@ class MigrateCommand extends Command
     public function createMigrationTable(): void
     {
         $migration = include BASE_PATH.'/src/Database/create_migration_table.php';
-        if (DBCapsule::table('migrations')->exists()) {
+        $migrationTableExists = DBCapsule::select('SHOW TABLES LIKE "migrations"');
+        if(! empty($migrationTableExists)){
             return;
         }
         $migration->up();

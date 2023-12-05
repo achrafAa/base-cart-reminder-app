@@ -2,6 +2,7 @@
 
 namespace Achraf\framework\Commands;
 
+use App\Database\DatabaseSeeder;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,7 +16,7 @@ class SeedCommand extends Command
         try {
             $output->writeln('Seeding database...');
             $output->writeln('this will take few minutes... (drink some water)');
-            $seeder = include BASE_PATH.'/src/Database/DatabaseSeeder.php';
+            $seeder = new DatabaseSeeder();
             $seeder->run();
             $output->writeln('Database seeded successfully!');
 

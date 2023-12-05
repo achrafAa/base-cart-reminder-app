@@ -27,7 +27,7 @@ When the checkout is done the cart is obviously removed - as it was converted to
 
 
 # Solution :
-a simple cart reminder app built with php and vuejs 
+a simple cart reminder app 
 ## Usage
 
 To get started, make sure you have [Docker installed](https://docs.docker.com/docker-for-mac/install/) on your system, and then clone this repository.
@@ -58,6 +58,7 @@ the run this fakers to create some products and a cart to test
 - `docker exec -it php sh -c "php wizard migrate"`
 - `docker exec -it php sh -c "php wizard seed"`
 
+## Commands
 
 to run commands inside the php container run the following command
 

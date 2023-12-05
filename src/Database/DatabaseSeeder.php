@@ -12,7 +12,7 @@ class DatabaseSeeder
     /**
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         // Seed the database with products
         $faker = Factory::create();
@@ -21,7 +21,7 @@ class DatabaseSeeder
             $products[] = [
                 'title' => $faker->sentence(3),
                 'description' => $faker->paragraph(3),
-                'image' => $faker->imageUrl(),
+                'image' => $faker->sentence(3),
                 'price' => $faker->randomFloat(2, 10, 100),
             ];
         }
