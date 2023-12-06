@@ -21,6 +21,7 @@ services:
       - mysql
       - redis
       - mailhog
+      - cron
     networks:
       - webappnetwork
 
@@ -50,6 +51,19 @@ services:
         - PHPUSER=${PHPUSER:-www-data}
         - PHPGROUP=${PHPGROUP:-www-data}
     container_name: php
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - webappnetwork
+  cron:
+    build:
+      context: .
+      dockerfile: .docker/cron.dockerfile
+    container_name: cron
+    entrypoint: [ "bash", "-c", "cron -f"]
+    depends_on:
+      - redis
+      - mysql
     volumes:
       - ./:/var/www/html
     networks:

@@ -33,6 +33,7 @@ class DatabaseSeeder
             $carts[] = [
                 'customer_email' => $faker->email(),
                 'customer_fullname' => $faker->name(),
+                'created_at' => date('Y-m-d H:i:s'),
             ];
         }
         DBCapsule::table('carts')->insert($carts);
@@ -48,6 +49,7 @@ class DatabaseSeeder
                     'product_id' => $products[rand(0, 9)],
                     'quantity' => $faker->randomDigit(),
                     'price' => $faker->randomFloat(2, 10, 100),
+                    'created_at' => date('Y-m-d H:i:s'),
                 ];
             }
             $cart->items()->createMany($cartItems);

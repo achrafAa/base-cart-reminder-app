@@ -12,7 +12,7 @@ class Queue implements QueueableInterface
     /**
      * @var int
      */
-    public int $attempt;
+    public int $job_attempt;
 
     /**
      * @var RedisClient

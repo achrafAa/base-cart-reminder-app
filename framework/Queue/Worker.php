@@ -26,8 +26,8 @@ class Worker
                 } catch (\Exception $e) {
                     echo 'Job failed: ' . $e->getMessage() . "\n";
                     logToFile('error', 'Job failed: ' . $e->getMessage());
-                    if ($job->attempts < 3) {
-                        $job->attempts++;
+                    if ($job->job_attempt < 3) {
+                        $job->job_attempt++;
                         $this->queue->enqueue($job);
                     }
                 }

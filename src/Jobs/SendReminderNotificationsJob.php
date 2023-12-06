@@ -2,18 +2,21 @@
 
 namespace App\Jobs;
 
+use Achraf\framework\Queue\Queue;
 use App\Services\CartReminderService;
 use Exception;
 
 class SendReminderNotificationsJob extends Queue
 {
-    private int $id;
 
+    public int $attempt;
     private int $cartId;
 
-    public function __construct(int $cartId, private readonly int $attempt)
+    public function __construct(int $cartId, int $attempt)
     {
         $this->cartId = $cartId;
+        $this->attempt = $attempt;
+        parent::__construct();
     }
 
     /**
