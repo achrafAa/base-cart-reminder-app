@@ -8,24 +8,13 @@ use Twig\Loader\FilesystemLoader;
 
 class View
 {
-    /**
-     * @var Environment
-     */
     private Environment $twig;
 
-    /**
-     * @param  FilesystemLoader  $loader
-     */
     public function __construct(FilesystemLoader $loader)
     {
         $this->twig = new Environment($loader);
     }
 
-    /**
-     * @param $view
-     * @param  array  $data
-     * @return string
-     */
     public function render($view, array $data = []): string
     {
         try {

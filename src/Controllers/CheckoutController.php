@@ -7,10 +7,6 @@ use App\Models\Cart;
 
 class CheckoutController
 {
-    /**
-     * @param  int  $cartId
-     * @return Response
-     */
     public function checkout(int $cartId): Response
     {
         // check auth skipped

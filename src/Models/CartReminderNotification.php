@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CartReminderNotification extends Model
 {
-    protected $fillable = ['attempt_count', 'cart_id', 'sent_at'];
+    protected $fillable = ['attempt', 'cart_id', 'sent_at'];
 
     /**
      * @return BelongsTo

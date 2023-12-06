@@ -5,13 +5,12 @@ namespace Achraf\framework\Queue;
 class Worker
 {
     private RedisQueue $queue;
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->queue = app()->get(RedisQueue::class);
     }
 
-    /**
-     * @return void
-     */
     public function run(): void
     {
         while (true) {
@@ -19,13 +18,13 @@ class Worker
 
             if ($job) {
                 try {
-                    echo "Job found, processing...\n" . get_class($job) . "\n";
-                    logToFile('info', "Job found, processing...\n" . get_class($job) . "\n");
+                    echo date('Y-m-d H:i:s')." Job found, processing...\n".get_class($job)."\n";
+                    logToFile('info', "Job found, processing...\n".get_class($job)."\n");
                     $job->handle();
-                    echo "Job processed\n";
+                    echo date('Y-m-d H:i:s')."Job processed\n";
                 } catch (\Exception $e) {
-                    echo 'Job failed: ' . $e->getMessage() . "\n";
-                    logToFile('error', 'Job failed: ' . $e->getMessage());
+                    echo date('Y-m-d H:i:s').'Job failed: '.$e->getMessage()."\n";
+                    logToFile('error', 'Job failed: '.$e->getMessage());
                     if ($job->job_attempt < 3) {
                         $job->job_attempt++;
                         $this->queue->enqueue($job);

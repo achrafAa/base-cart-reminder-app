@@ -17,7 +17,7 @@ return new class
             $table->unsignedBigInteger('cart_id');
             $table->integer('attempt')->default(0);
             $table->timestamp('sent_at')->useCurrent();
-            $table->foreign('cart_id')->references('id')->on('carts');
+            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
             $table->timestamps();
         });
     }

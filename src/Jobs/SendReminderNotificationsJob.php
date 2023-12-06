@@ -8,8 +8,8 @@ use Exception;
 
 class SendReminderNotificationsJob extends Queue
 {
-
     public int $attempt;
+
     private int $cartId;
 
     public function __construct(int $cartId, int $attempt)

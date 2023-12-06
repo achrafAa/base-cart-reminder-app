@@ -1,1 +1,2 @@
-* * * * * /usr/local/bin/php /var/www/html/cron.php  >> /var/www/html/logs/cron.log 2>&1
+* * * * * /usr/local/bin/php /var/www/html/wizard app:push-cart-reminders-notifications >> /var/www/html/logs/cron-app.log 2>&1
+* * * * * /usr/local/bin/php /var/www/html/worker  >> /var/www/html/logs/cron-worker.log 2>&1

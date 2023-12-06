@@ -18,8 +18,8 @@ return new class
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
             $table->decimal('price');
-            $table->foreign('cart_id')->references('id')->on('carts');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

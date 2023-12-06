@@ -4,7 +4,6 @@ use Achraf\framework\Commands\MakeMigrationCommand;
 use Achraf\framework\Commands\MigrateCommand;
 use Achraf\framework\Commands\SeedCommand;
 use App\Commands\PushReminderNotificationsCommand;
-use App\Jobs\CreateReminderNotificationsJob;
 use Symfony\Component\Console\Application;
 
 require_once BASE_PATH.'/src/App.php';

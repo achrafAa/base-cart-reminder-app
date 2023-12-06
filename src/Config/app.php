@@ -16,7 +16,7 @@ return [
 
     'MAIL_HOST' => $_ENV['MAIL_HOST'] ?? 'mailhog',
     'MAIL_PORT' => $_ENV['MAIL_PORT'] ?? '1025',
-    'MAIL_FROM_ADDRESS' => $_ENV['MAIL_FROM_ADDRESS'] ?? '',
+    'MAIL_FROM_ADDRESS' => $_ENV['MAIL_FROM_ADDRESS'] ?? 'email@cart-service.com',
 
     'REDIS_SCHEME' => 'tcp',
     'REDIS_HOST' => 'redis',

@@ -11,25 +11,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'app:push-cart-reminders-notifications', description: 'push cart reminders notifications')]
 class PushReminderNotificationsCommand extends Command
 {
-    /**
-     * @var CreateReminderNotificationsJob
-     */
     private CreateReminderNotificationsJob $createReminderNotificationsJob;
 
-    /**
-     * @param  CreateReminderNotificationsJob  $createReminderNotificationsJob
-     */
     public function __construct(CreateReminderNotificationsJob $createReminderNotificationsJob)
     {
         $this->createReminderNotificationsJob = $createReminderNotificationsJob;
         parent::__construct();
     }
 
-    /**
-     * @param  InputInterface  $input
-     * @param  OutputInterface  $output
-     * @return int
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {

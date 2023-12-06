@@ -2,7 +2,6 @@
 
 use Achraf\framework\Config\Config;
 use Achraf\framework\Mailer\Mailer;
-use Achraf\framework\Queue\Queue;
 use Dotenv\Dotenv;
 use Illuminate\Database\Capsule\Manager as DBCapsule;
 use Monolog\Handler\StreamHandler;

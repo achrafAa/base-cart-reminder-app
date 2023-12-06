@@ -9,9 +9,6 @@ use Illuminate\Database\Capsule\Manager as DBCapsule;
 
 class DatabaseSeeder
 {
-    /**
-     * @return void
-     */
     public function run(): void
     {
         // Seed the database with products

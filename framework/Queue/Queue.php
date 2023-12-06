@@ -4,33 +4,22 @@ namespace Achraf\framework\Queue;
 
 use Achraf\framework\Interfaces\QueueableInterface;
 use Exception;
-use Predis\Client as RedisClient;
 
 class Queue implements QueueableInterface
 {
-
-    /**
-     * @var int
-     */
     public int $job_attempt;
 
-    /**
-     * @var RedisClient
-     */
-    public RedisClient $queue;
+    public RedisQueue $queue;
 
     /**
      * @return void
      */
     public function __construct()
     {
-        $this->queue = app()->get(RedisClient::class);
+        $this->queue = app()->get(RedisQueue::class);
 
     }
 
-    /**
-     * @return void
-     */
     public function dispatch(): void
     {
         try {
@@ -40,19 +29,11 @@ class Queue implements QueueableInterface
         }
     }
 
-    /**
-     * @param  string  $queueName
-     * @return RedisClient
-     */
-    public function onQueue(string $queueName): RedisClient
+    public function onQueue(string $queueName): RedisQueue
     {
         return $this->queue->onQueue($queueName);
     }
 
-
-    /**
-     * @return void
-     */
     public function handle(): void
     {
         // TODO: Implement handle() method.

@@ -7,14 +7,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Mailer
 {
-    /**
-     * @var PHPMailer
-     */
     private PHPMailer $mailer;
 
-    /**
-     * @param  PHPMailer  $mailer
-     */
     public function __construct(PHPMailer $mailer)
     {
         $this->mailer = $mailer;
@@ -27,12 +21,6 @@ class Mailer
         $this->mailer->Port = config('MAIL_PORT') ?? 1025;
     }
 
-    /**
-     * @param $to
-     * @param $subject
-     * @param $body
-     * @return void
-     */
     public function sendEmail($to, $subject, $body): void
     {
         try {

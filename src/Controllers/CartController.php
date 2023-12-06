@@ -7,13 +7,10 @@ use App\Models\Cart;
 
 class CartController
 {
-    /**
-     * @param  int  $cartId
-     * @return Response
-     */
     public function show(int $cartId): Response
     {
-        $cart = Cart::find($cartId)->with('items')->first();
+
+        $cart = Cart::query()->find($cartId)->with(['items', 'items.product'])->first();
 
         return response(view('cart/show', ['cart' => $cart]));
     }

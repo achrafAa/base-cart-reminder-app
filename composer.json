@@ -31,7 +31,6 @@
     "monolog/monolog": "^3.5",
     "predis/predis": "^2.2",
     "twig/twig": "^3.0",
-    "cron/cron": "^1.0",
     "phpmailer/phpmailer": "^6.9"
   },
   "scripts": {

@@ -11,9 +11,6 @@ use Exception;
 
 class CartReminderService
 {
-    /**
-     * @return void
-     */
     public function CreateReminderJobs(): void
     {
         $this->CreateReminderJobsForFirstAttempt();
@@ -22,9 +19,6 @@ class CartReminderService
         $this->DeleteCarts();
     }
 
-    /**
-     * @return void
-     */
     private function CreateReminderJobsForFirstAttempt(): void
     {
         try {
@@ -42,9 +36,6 @@ class CartReminderService
         }
     }
 
-    /**
-     * @return void
-     */
     private function CreateReminderJobsForSecondAttempt(): void
     {
         try {
@@ -65,9 +56,6 @@ class CartReminderService
         }
     }
 
-    /**
-     * @return void
-     */
     private function CreateReminderJobsForThirdAttempt(): void
     {
         try {
@@ -88,9 +76,6 @@ class CartReminderService
         }
     }
 
-    /**
-     * @return void
-     */
     public function DeleteCarts(): void
     {
         try {
@@ -107,11 +92,6 @@ class CartReminderService
         }
     }
 
-    /**
-     * @param  int  $cartId
-     * @param  int  $attempt
-     * @return void
-     */
     public function sendReminderNotification(int $cartId, int $attempt): void
     {
         // we can use attempt to send different emails
@@ -120,9 +100,6 @@ class CartReminderService
             $cart = Cart::query()->find($cartId);
             if (! $cart) {
                 throw new Exception(sprintf('Cart with id %s not found', $cartId));
-            }
-            if ($cart->cartReminderNotification && $cart->cartReminderNotification->attempt_count >= $attempt) {
-                return;
             }
             $cart->cartReminderNotification()
                 ->Create([
@@ -148,10 +125,6 @@ class CartReminderService
         }
     }
 
-    /**
-     * @param  Exception  $exception
-     * @return void
-     */
     public function logError(Exception $exception): void
     {
         logToFile('error', sprintf('Error: %s, File: %s, Line: %s', $exception->getMessage(), $exception->getFile(), $exception->getLine()));

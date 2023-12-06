@@ -4,13 +4,6 @@ namespace Achraf\framework\Http;
 
 readonly class Request
 {
-    /**
-     * @param  array  $getParams
-     * @param  array  $postParams
-     * @param  array  $server
-     * @param  array  $cookies
-     * @param  array  $files
-     */
     public function __construct(
         public array $getParams = [],
         public array $postParams = [],
@@ -20,9 +13,6 @@ readonly class Request
     ) {
     }
 
-    /**
-     * @return static
-     */
     public static function createFromGlobals(): static
     {
         return new static(
@@ -34,17 +24,11 @@ readonly class Request
         );
     }
 
-    /**
-     * @return string
-     */
     public function getPathInfo(): string
     {
         return strtok($this->server['REQUEST_URI'], '?');
     }
 
-    /**
-     * @return string
-     */
     public function getMethod(): string
     {
         return $this->server['REQUEST_METHOD'];

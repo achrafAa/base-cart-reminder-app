@@ -17,10 +17,6 @@ final class Config
         self::$values = $values;
     }
 
-    /**
-     * @param  string  $key
-     * @return string
-     */
     public static function getValue(string $key): string
     {
         return self::$values[$key] ?? '';
