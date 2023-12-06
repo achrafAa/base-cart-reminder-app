@@ -1,1 +1,1 @@
-* * * * * /usr/local/bin/php /var/www/html/worker  >> /var/www/html/logs/cron.log 2>&1
+* * * * * /usr/local/bin/php /var/www/html/cron.php  >> /var/www/html/logs/cron.log 2>&1
